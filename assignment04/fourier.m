@@ -37,12 +37,12 @@ figure(3),
     display_phase( fft_im_shifted ),
     title 'FFT input image: phase';
 
-    
+freqThreshold = 0.1;
 % set lower left and upper right quadrants to zero
 % why? just to play around a bit, it's not really useful.
 for x=1:fftsize
     for y=1:fftsize
-        if ( (x-fftsize/2) * (y-fftsize/2) > 0)
+        if ( fft_im_shifted( x,y ) < freqThreshold)
             fft_im_shifted( x,y ) = 0;
         end
     end
