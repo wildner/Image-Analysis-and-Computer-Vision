@@ -1,0 +1,75 @@
+\documentclass[10pt,a4paper]{scrartcl}
+\usepackage{../uebungsblatt}
+\usepackage{dsfont}
+\usepackage[utf8]{inputenc}
+\usepackage{ngerman}
+\usepackage{enumitem}
+\usepackage{stmaryrd}
+\usepackage{a4wide}
+\usepackage[ruled, vlined]{algorithm2e}
+\usepackage{amsmath}
+\usepackage{dsfont}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{listings}
+
+\lstset{
+  moredelim=[is][\underbar]{-}{-}
+}
+
+\newcommand{\Pot}{\mathcal{P}}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\der}{\,\mathrm{d}}
+
+
+%Kopfzeile:
+\fancyhead[R]{Seite: \thepage \hspace{0.5ex} von \pageref{LastPage}}
+\fancyhead[L]{Wildner \& Metzner }
+
+\begin{document}
+
+\uebkopfzeile
+  {Computer Vision and Image Analysis} % Titel der Veranstaltung
+  {WS 14/15}  % Semesterangabe, Übungsgruppe
+  {}    % Dozenten, Übungsleiter
+  {Jens Metzner \& Manuel Wildner}    % Loesungsblattbearbeiter
+
+\uebtitel
+{Solution of assignment 4} % Titel (gross und zentriert)
+{11. Nov} % Datum der Abgabe
+
+
+\solution{4.1}{the Fourier transform with pen and paper}{10}
+
+\begin{align*}
+f(x,y) &= \left\{\begin{array}{cl} 1, & \mbox{if }0 \leq x \leq \frac{1}{2} \mbox{ and } -\frac{1}{4} \leq y \leq \frac{1}{4},\\ 0, & \mbox{otherwise} \end{array}\right.\\
+%
+\hat f(w_x,w_y) &= \int_\R \int_\R f(x,y) \exp{\left(-2\pi i(w_xx+w_yy)\right)}\der x \der y\\
+\end{align*}
+
+\begin{align*}
+\hat f(w_x,w_y) &= \int_{-\frac{1}{4}}^\frac{1}{4} \int_0^\frac{1}{2} 1 \exp{\left(-2\pi i(w_xx+w_yy)\right)}\der x \der y\\
+%
+\hat f(w_x,w_y) &= \int_{-\frac{1}{4}}^\frac{1}{4} \left(\int_0^\frac{1}{2} \exp{\left(-2\pi i(w_xx+w_yy)\right)}\der x \right)\der y\\
+%
+\hat f(w_x,w_y) &= \int_{-\frac{1}{4}}^\frac{1}{4} \left(\frac{i\exp{\left(-i\pi (w_x+2w_yy)\right)}}{2\pi w_x} - \frac{i\exp{\left(-i\pi w_x-i\pi(w_x+2w_yy)\right)}}{2\pi w_x}\right)\der y\\
+%
+\hat f(w_x,w_y) &= \frac{\sin{\left(\frac{\pi w_y}{2}\right)} \left(\sin{(\pi w_x)} + i \cos{(\pi w_x)} - i\right)}{2 \pi^2 w_x w_y}\\
+\end{align*}
+\begin{figure}[h]
+\center
+\renewcommand\arraystretch{1.5}%
+\begin{tabular}{l|ccc}
+ & result & $\log|\hat f|$ & $\arg{\hat f}$\\\hline
+$\hat f(1,0)$ & $-\frac{i}{2\pi}$ & $\log\frac{1}{2\pi} = -1,838$ & $-\frac{\pi}{2}$ \\
+$\hat f(0,1)$ & $\frac{1}{2\pi}$ & $\log\frac{1}{2\pi} = -1,838$ & 0 \\
+$\hat f(-1,0)$ & $\frac{i}{2\pi}$ & $\log\frac{1}{2\pi} = -1,838$ & $\frac{\pi}{2}$ \\
+$\hat f(0,-1)$ & $\frac{1}{2\pi}$ & $\log\frac{1}{2\pi} = -1,838$ & 0 \\
+\end{tabular}
+\end{figure}
+\end{document}

@@ -1,0 +1,46 @@
+% LaTeX2e style file um Loesungsblaetter zu Uebungen zu generieren.
+
+\NeedsTeXFormat{LaTeX2e}
+
+\ProvidesPackage{uebungsblatt}
+
+\usepackage{a4wide, amsmath, amsfonts, amssymb, amsthm, mathrsfs, graphicx, tabularx,
+fancyhdr, lastpage}
+
+\setlength{\parindent} {0pt}
+\setlength{\parskip}{0.5ex}
+
+\pagestyle{fancy}
+\fancyhf{}
+
+
+\newcommand{\uebkopfzeile}[4]{
+  \begin{center}
+    \textbf{
+      #1 \hfill #2\\
+      #3 \hfill #4\\
+    }
+  \end{center}
+}
+
+\newcommand{\uebtitel}[2]{
+  \begin{center}
+    \textbf{
+      \bigskip
+      {\LARGE #1}\\
+    }
+    \textit{(Submission: #2)}
+  \end{center}
+}
+
+\newcommand{\solution}[3]{
+  \begin{center}
+    \parbox[t]{0.7\textwidth}{
+      \textbf{Task #1:} \textit{ #2}
+    }
+    \hfill
+    \parbox[t]{0.25\textwidth}{
+      \textbf{[ \quad ] out of #3 Points}
+    }
+  \end{center}
+}
