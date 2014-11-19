@@ -37,6 +37,7 @@ figure(3),
     display_phase( fft_im_shifted ),
     title 'FFT input image: phase';
 
+% 4.2a
 freqThreshold = 0.1;
 for x=1:fftsize
     for y=1:fftsize

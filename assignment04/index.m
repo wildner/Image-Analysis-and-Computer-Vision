@@ -13,7 +13,7 @@ imgFftShifted = fftshift( imgFft );
     
 % fft of gaussian kernel
 kernelSigma = 10;
-kernelSize = 80;
+kernelSize = 20;
 kernel = fspecial('gaussian',kernelSize, kernelSigma);
 kernelFft = fft2(kernel, imgFftSize, imgFftSize);
 kernelFftShifted = fftshift( kernelFft );
@@ -50,13 +50,15 @@ axis image;
 
 %% 4.2.c
 
-kernelSigma = 1;
-kernelSize = 80;
+kernelSigma = 0.8;
+kernelSize = 40;
 kernel=conv2(fspecial('gaussian',kernelSize, kernelSigma),[1 0 -1],'valid');
 kernelFft = fft2(kernel, imgFftSize, imgFftSize);
 kernelFftShifted = fftshift( kernelFft );
-
-
+%%
+kernelFft = fft2([0.5 0 -0.5], imgFftSize, imgFftSize);
+kernelFftShifted = fftshift( kernelFft );
+%%
 % combine two fft
 result = imgFft .* kernelFft;
 result = ifft2( result );
