@@ -51,7 +51,7 @@ f(x,y) &= \left\{\begin{array}{cl} 1, & \mbox{if }0 \leq x \leq \frac{1}{2} \mbo
 %
 \hat f(w_x,w_y) &= \int_\R \int_\R f(x,y) \exp{\left(-2\pi i(w_xx+w_yy)\right)}\der x \der y\\
 \end{align*}
-
+Due to the case distinction of $f(x,y)$, we can limit the integrals and replace the function with $1$. Then we simplify the integrals:
 \begin{align*}
 \hat f(w_x,w_y) &= \int_{-\frac{1}{4}}^\frac{1}{4} \int_0^\frac{1}{2} 1 \exp{\left(-2\pi i(w_xx+w_yy)\right)}\der x \der y\\
 %
@@ -61,6 +61,7 @@ f(x,y) &= \left\{\begin{array}{cl} 1, & \mbox{if }0 \leq x \leq \frac{1}{2} \mbo
 %
 \hat f(w_x,w_y) &= \frac{\sin{\left(\frac{\pi w_y}{2}\right)} \left(\sin{(\pi w_x)} + i \cos{(\pi w_x)} - i\right)}{2 \pi^2 w_x w_y}\\
 \end{align*}
+We use this formular and get following results and also amplitude as $\log|\hat f|$ and phase as $\arg{\hat f}$:
 \begin{figure}[h]
 \center
 \renewcommand\arraystretch{1.5}%
@@ -77,7 +78,7 @@ $\hat f(0,-1)$ & $\frac{1}{2\pi}$ & $\log\frac{1}{2\pi} = -1,838$ & 0 \\
 
 \begin{itemize}
 \item[\textbf{(b)}] The amount of shifted pixels depends on the size of the kernel.
-\item[\textbf{(c)}]
+\item[\textbf{(c)}] It would apply noise because the values of the outer regions of the Fourier transformation of the central difference kernel are a lot higher compared to the derivate of the Gaussian kernel, which means, that some unimportant frequencies are pushed.
 \end{itemize}
 
 

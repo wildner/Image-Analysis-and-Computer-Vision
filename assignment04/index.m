@@ -49,14 +49,16 @@ title('result')
 axis image;
 
 %% 4.2.c
-
+% choose one:
+% central difference kernel
+kernelFft = fft2([0.5 0 -0.5], imgFftSize, imgFftSize);
+kernelFftShifted = fftshift( kernelFft );
+%%
+% derivate of Gaussian kernel
 kernelSigma = 0.8;
 kernelSize = 40;
 kernel=conv2(fspecial('gaussian',kernelSize, kernelSigma),[1 0 -1],'valid');
 kernelFft = fft2(kernel, imgFftSize, imgFftSize);
-kernelFftShifted = fftshift( kernelFft );
-%%
-kernelFft = fft2([0.5 0 -0.5], imgFftSize, imgFftSize);
 kernelFftShifted = fftshift( kernelFft );
 %%
 % combine two fft
@@ -82,7 +84,7 @@ color grey
 title('result')
 axis image;
 
-%%
+%% 4.3
 im = rgb2gray(imread('1.jpg'));
 img1 = double( im ) / 255.0;
 im = rgb2gray(imread('3.jpg'));
