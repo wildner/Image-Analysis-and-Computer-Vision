@@ -1,0 +1,53 @@
+\documentclass[10pt,a4paper]{scrartcl}
+\usepackage{../uebungsblatt}
+\usepackage{dsfont}
+\usepackage[utf8]{inputenc}
+\usepackage{ngerman}
+\usepackage{enumitem}
+\usepackage{stmaryrd}
+\usepackage{a4wide}
+\usepackage[ruled, vlined]{algorithm2e}
+\usepackage{amsmath}
+\usepackage{dsfont}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{listings}
+
+\lstset{
+  moredelim=[is][\underbar]{-}{-}
+}
+
+\newcommand{\Pot}{\mathcal{P}}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\der}{\,\mathrm{d}}
+
+
+%Kopfzeile:
+\fancyhead[R]{Seite: \thepage \hspace{0.5ex} von \pageref{LastPage}}
+\fancyhead[L]{Wildner \& Metzner }
+
+\begin{document}
+
+\uebkopfzeile
+  {Computer Vision and Image Analysis} % Titel der Veranstaltung
+  {WS 14/15}  % Semesterangabe, Übungsgruppe
+  {}    % Dozenten, Übungsleiter
+  {Jens Metzner \& Manuel Wildner}    % Loesungsblattbearbeiter
+
+\uebtitel
+{Solution of assignment 5} % Titel (gross und zentriert)
+{27. Nov} % Datum der Abgabe
+
+
+\solution{5.1}{the SIFT paper}{10}
+
+
+\solution{5.2}{blob detection using Difference of Gaussians in scale space}{20}
+
+
+\end{document}
