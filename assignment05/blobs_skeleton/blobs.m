@@ -12,12 +12,13 @@ image = double(image) / 255.0;
 % Scale space construction
 [h w] = size( image );
 
-% Base scale
-sigma = 2.71;
 % Factor between consecutive scales
-k = 1.3;
+%k = 1+1/9-0.00586;
+k = 1+1/9;
+% Base scale
+sigma = 3/k;
 % Total number of scales
-N = 21;
+N = 20;
 % Vector of all scales
 scales = 1:N;
 
@@ -27,11 +28,10 @@ scales = 1:N;
 scales(1) = sigma;
 for t = 2:N
    %scales(t) = scales(t-1)*k;
-   k = 1+1/9;
    scales(t) = scales(t-1)*k;
 end
- %scales
- 
+scales
+
 % Scale space placeholder, one image per layer
 scs = zeros( h, w, N );
 % Difference of Gaussians placeholder, one layer less
