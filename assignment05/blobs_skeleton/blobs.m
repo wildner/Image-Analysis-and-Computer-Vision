@@ -4,7 +4,7 @@
 
 % (c) Bastian Goldluecke 10/2014, University of Konstanz
 % License: Creative Commons BY-SA 4.0
- 
+%%
 image = imread( 'sunflowers.png' );
 image = double(image) / 255.0;
 %image = rgb2gray( image );
@@ -13,18 +13,25 @@ image = double(image) / 255.0;
 [h w] = size( image );
 
 % Base scale
-sigma = 0.5;
+sigma = 2.71;
 % Factor between consecutive scales
 k = 1.3;
 % Total number of scales
-N = 20;
+N = 21;
 % Vector of all scales
 scales = 1:N;
 
 % TODO: replace each entry in the vector "scales" by the correct
 % standard deviation of the Gaussian for this scale
-scales = TODO
 
+scales(1) = sigma;
+for t = 2:N
+   %scales(t) = scales(t-1)*k;
+   k = 1+1/9;
+   scales(t) = scales(t-1)*k;
+end
+ %scales
+ 
 % Scale space placeholder, one image per layer
 scs = zeros( h, w, N );
 % Difference of Gaussians placeholder, one layer less
@@ -39,12 +46,13 @@ dog_max = zeros( h, w, N-1 );
 
 % IMPORTANT: Gaussian kernel size must be the same for all scales
 % so use maximum necessary value (for largest std. dev.)
-sz = TODO; % initialize with maximum necessary kernel size
+sz = 150; % initialize with maximum necessary kernel size
 
 % Initialize scale space
 for t = 1:N
-    t
-    scs( :,:,t ) = TODO; % compute Gaussian convolution of image with
+    %t
+    kernel = fspecial('gaussian', sz, scales(t));
+    scs( :,:,t ) = imfilter(image, kernel); % compute Gaussian convolution of image with
                          % std. dev. for scale t, kernel size sz
 end
 
@@ -55,7 +63,7 @@ figure(1), clf( 'reset' ), volume_visualize( 1:w, 1:h, 1:N, scs ), colormap gray
 % a 3x3 neighborhood - this makes checking for scale space
 % maxima slightly more efficient
 for t = 1:N-1
-    dog( :,:,t ) = TODO;  % compute difference of Gaussians at this scale
+    dog( :,:,t ) = scs(:,:,t+1) - scs(:,:,t);  % compute difference of Gaussians at this scale
 
     % this is optional, use if you like to speed up future tests
     dog_max( :,:,t ) = local_maxima_3x3( dog( :,:,t ));
@@ -74,7 +82,7 @@ figure(2), clf( 'reset' ), volume_visualize( 1:w, 1:h, 1:N-1, dog ), colormap je
 count = 1;
 clear maxima;
 for x=2:h-1
-    x % feedback to see something is still happening
+    %x % feedback to see something is still happening
       % if this loop gets very very slow the longer it runs, you are detecting
       % too many local maxima, i.e. probably have buggy code ;)
     for y=2:w-1
@@ -84,14 +92,20 @@ for x=2:h-1
 
             % TODO: in next line, replace the random initialization with
             % the correct test for a local MAXIMUM (note: this only detects
-            % black blobs).
+            % black blobs).            
+            %is_local_maximum = v < 0.01;
             
-            is_local_maximum = rand() < 0.01; % TODO correct test
+            %is_local_maximum = true;
+            
+            v_cube = ones(3,3,3)*v;
+            
+            is_bigger = dog(x-1:x+1,y-1:y+1,t-1:t+1) > v_cube;
+            is_local_maximum = sum(is_bigger(:)) == 0;
             
             if ( is_local_maximum )
                                  
                  % keep the feature
-                 maxima( count,: ) = [ v y x scales(s+1) ];
+                 maxima( count,: ) = [ v y x scales(t) ];
                  count = count + 1;
 
             end
