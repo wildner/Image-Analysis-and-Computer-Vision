@@ -45,9 +45,16 @@
 
 
 \solution{5.1}{the SIFT paper}{10}
-
+\begin{itemize}
+	\item[(i)] $k$ is computed by $k = 2^\frac{1}{s}$ to get $s$ intervals for each octave of the scale space. So $k = \sqrt{2}$\\
+	The precise scales are $\sigma,\ 1.41*\sigma,\ \sigma,\ 2.83*\sigma$ and $4*\sigma$
+	\item[(ii)]
+	\item[(iii)] It is a approximation of the Hessian and derivative of D (scale-space function) by using differences of neighboring sample points.
+	\item[(iv)]
+	\item[(v)] In the figure, they use a 2x2x8 = 32 feature vector and in their experiments, a 4x4x8 = 128 feature vector.
+\end{itemize}
 
 \solution{5.2}{blob detection using Difference of Gaussians in scale space}{20}
-
+$\rightarrow$ See code : )
 
 \end{document}
