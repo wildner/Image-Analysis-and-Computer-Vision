@@ -66,9 +66,9 @@ for t = 1:N-1
     % EDIT: 
     dog( :,:,t ) = scs(:,:,t+1) - scs(:,:,t);  
     % this is optional, use if you like to speed up future tests
-    dog_max( :,:,t ) = local_maxima_3x3( dog( :,:,t ));
+    % dog_max( :,:,t ) = local_maxima_3x3( dog( :,:,t ));
     % EDIT: also find local minimal
-    dog_min( :,:,t ) = -local_maxima_3x3( -dog( :,:,t ));
+    % dog_min( :,:,t ) = -local_maxima_3x3( -dog( :,:,t ));
 end
     
 % equally cool DoG visualization
@@ -98,14 +98,25 @@ for x=2:h-1
             % black blobs).
             % keep the feature
             % EDIT: 
-            is_local_maximum = v == dog_max(x,y,t);
-            is_local_minimum = v == dog_min(x,y,t);
+            
+            v_cube = ones(3,3,3)*v;
+            
+            is_bigger = dog(x-1:x+1,y-1:y+1,t-1:t+1) > v_cube;
+            is_local_maximum = sum(is_bigger(:)) == 0;
+            
+            is_smaller = dog(x-1:x+1,y-1:y+1,t-1:t+1) < v_cube;
+            is_local_minimum = sum(is_smaller(:)) == 0;
+            
+            %is_local_maximum = v == dog_max(x,y,t);
+            %is_local_minimum = v == dog_min(x,y,t);
+            % EDIT: we take the next sigma for our radius and the result is
+            % sufficient. 
             if ( is_local_maximum )
-                 maxima( count_maxima,: ) = [ v y x scales(t) ];
+                 maxima( count_maxima,: ) = [ v y x scales(t + 1) ];
                  count_maxima = count_maxima + 1;
             end
             if ( is_local_minimum )
-                 minima( count_minima,: ) = [ v y x scales(t) ];
+                 minima( count_minima,: ) = [ v y x scales(t + 1) ];
                  count_minima = count_minima + 1;
             end
         end
